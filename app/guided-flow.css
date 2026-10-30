@@ -77,3 +77,8 @@
 .custom-topping-list{list-style:none;display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 0;padding:0}
 .custom-topping-list li{display:flex;align-items:center;gap:8px;max-width:100%;padding:4px 4px 4px 12px;background:#e9eddf;font-size:13px;overflow-wrap:anywhere}
 .custom-topping-list button{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;background:none;color:var(--ink)}
+
+.tea-color-palette{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;border:0;padding:0;margin:0}
+.tea-color-palette legend{font-size:12px;color:var(--muted);margin-bottom:10px}
+.tea-color-palette button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:2px solid #faf7e9;outline:1px solid var(--line);color:white;border-radius:50%}
+.tea-color-palette button[aria-pressed=true]{outline:2px solid var(--ink)}
