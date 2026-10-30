@@ -12,7 +12,7 @@ export async function getInsights():Promise<Insights>{
  const [totals,saved,teas,milks,toppings,ice,sweetness,blends]=await Promise.all([
   sql.query(`WITH blends AS (${normalizedBlendsSql}) SELECT COUNT(*)::int AS samples,COUNT(DISTINCT blend)::int AS unique_blends FROM blends`),
   sql`SELECT COUNT(*)::int AS count FROM drinks`,
-  sql`SELECT recipe->>'tea' AS name,COUNT(*)::int AS count FROM orders GROUP BY 1 ORDER BY 2 DESC,1`,
+  sql`SELECT CASE WHEN recipe->>'tea'='Custom tea' THEN COALESCE(NULLIF(recipe->>'teaName',''),'Custom tea') ELSE recipe->>'tea' END AS name,COUNT(*)::int AS count FROM orders GROUP BY 1 ORDER BY 2 DESC,1`,
   sql`SELECT recipe->>'milk' AS name,COUNT(*)::int AS count FROM orders GROUP BY 1 ORDER BY 2 DESC,1`,
   sql`SELECT ingredient AS name,COUNT(*)::int AS count FROM orders CROSS JOIN LATERAL jsonb_array_elements_text(recipe->'toppings') ingredient GROUP BY 1 ORDER BY 2 DESC,1`,
   sql`SELECT recipe->>'ice' AS name,COUNT(*)::int AS count FROM orders GROUP BY 1 ORDER BY 2 DESC,1`,

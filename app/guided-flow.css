@@ -66,3 +66,14 @@
 }
 @media(max-width:360px){.flow-progress{padding-left:13px;padding-right:13px}.flow-progress>div:first-child{font-size:9px}.flow-progress .stepper{gap:11px}.flow-progress .step{font-size:9px}.finished-details{padding:23px 16px}.finished-details h1{font-size:33px}}
 @media(prefers-reduced-motion:reduce){.flow-progress progress::-webkit-progress-value{transition:none}}
+.custom-ingredient{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end;margin-top:24px}
+.custom-ingredient label,.custom-topping-form label{display:flex;flex-direction:column;gap:9px;font-size:13px;line-height:1.6;color:var(--ink)}
+.custom-ingredient input[type=color]{width:68px;height:48px;padding:5px;cursor:pointer;border:1px solid var(--line);border-radius:0;background:var(--paper)}
+.custom-topping-form{margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.custom-topping-form label span{font-size:12px;font-weight:400;color:var(--muted)}
+.custom-topping-form>div{display:flex;gap:10px;margin-top:12px}
+.custom-topping-form input{min-width:0;flex:1}
+.custom-topping-form button{padding:12px;white-space:nowrap;font-size:12px}
+.custom-topping-list{list-style:none;display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 0;padding:0}
+.custom-topping-list li{display:flex;align-items:center;gap:8px;max-width:100%;padding:4px 4px 4px 12px;background:#e9eddf;font-size:13px;overflow-wrap:anywhere}
+.custom-topping-list button{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;background:none;color:var(--ink)}
