@@ -1,0 +1,15 @@
+import type { IngredientCount,Insights } from '@/lib/insights';
+import IngredientArt from './ingredient-art';
+
+function IngredientRanking({title,items,samples}:{title:string;items:IngredientCount[];samples:number}){
+ return <article className="analytics-card ingredient-ranking"><h3>{title}</h3>{items.length?<ol>{items.map(item=><li key={item.name}><div><span>{item.name}</span><strong>{item.count} <small>({Math.round(item.count/Math.max(1,samples)*100)}%)</small></strong></div><div className="ranking-track"><i style={{width:`${item.count/Math.max(1,samples)*100}%`}}/></div></li>)}</ol>:<p className="muted">Choices will appear here as people finish their cards.</p>}</article>;
+}
+
+export default function DrinkInsights({data}:{data:Insights}){
+ const metrics=[['Different combinations',data.uniqueBlends],['Most chosen tea',data.teas[0]?.name??'—'],['Most chosen topping',data.toppings[0]?.name??'—'],['Saved drinks',data.savedDrinks]];
+ return <>
+  <div className="metric-grid">{metrics.map(([label,value])=><div className="metric" key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
+  <article className="analytics-card popular-blends"><div className="insights-section-title"><h3>Popular combinations</h3><span>Based on {data.sampleCount} completed drink {data.sampleCount===1?'card':'cards'}</span></div>{data.blends.length?<ol className="blend-list">{data.blends.map((b,i)=><li key={JSON.stringify(b.recipe)}><span className="blend-rank">{String(i+1).padStart(2,'0')}</span><div><h4>{b.recipe.tea==='No tea'?b.recipe.milk:`${b.recipe.tea}${b.recipe.milk==='No milk'?'':` with ${b.recipe.milk.toLowerCase()}`}`}</h4><p>{b.recipe.teaAmount}% tea · {b.recipe.milkAmount}% milk · {b.recipe.ice.toLowerCase()} · {b.recipe.sweetness} sweetness</p><p>{b.recipe.toppings.join(' + ')||'No toppings'}</p></div><span className="blend-frequency">{b.count}<small>{b.count===1?'card':'cards'}</small></span></li>)}</ol>:<div className="insights-empty"><IngredientArt kind="tea" name="Jasmine green"/><p>Finished drink cards will reveal which combinations people come back to.</p></div>}</article>
+  <div className="analytics-grid"><IngredientRanking title="Tea choices" items={data.teas} samples={data.sampleCount}/><IngredientRanking title="Milk choices" items={data.milks} samples={data.sampleCount}/><IngredientRanking title="Topping choices" items={data.toppings} samples={data.sampleCount}/><IngredientRanking title="Ice preferences" items={data.ice} samples={data.sampleCount}/><IngredientRanking title="Sweetness preferences" items={data.sweetness} samples={data.sampleCount}/><article className="analytics-card insights-reading"><h3>Reading the mix</h3><p>Each completed card contributes one drink to these patterns. Changing a drink’s name or selecting its toppings in a different order does not create a new combination.</p><p>Percentages show the share of completed cards. Topping percentages can add up to more than 100% because one drink can include several toppings.</p></article></div>
+ </>;
+}
