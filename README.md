@@ -4,7 +4,8 @@ A responsive boba recipe builder, built with Next.js, Neon Postgres and Neon man
 
 ## Features
 
-- Five progressively disclosed steps: tea, milk, ice/sweetness, toppings, finish.
+- Five guided sections: tea, milk, ice/sweetness, toppings, and naming. Each next section unlocks only after confirmation; editing an earlier ingredient requires the later sections to be confirmed again.
+- A personal finished-drink screen shows the named cup, a description based on its ingredients, saving, and card creation. Saving resumes automatically after sign-in.
 - Tea and milk proportions balance to 100%; a dynamic SVG cup and recipe summary track every choice.
 - Multiple toppings, a named recipe collection saved to Neon, and printable/copyable drink cards without prices or visible identifiers.
 - Server-side recipe validation and retry-safe card creation.
@@ -18,6 +19,10 @@ A responsive boba recipe builder, built with Next.js, Neon Postgres and Neon man
 - Vercel Blob: `bobathon-assets`, connected to this project. The cup illustration is native SVG, so it needs no image download or bitmap storage. Blob is ready for future uploaded media.
 - Admin email invitation: `lee.joyce21@gmail.com`. Create an account with this email, then open Dashboard and verify ownership with the email-code form. No account is made admin merely for signing up first.
 
+## Source and deployment
+
+The private repository is `joyceful-lee/bobathon`. Its `main` branch is connected to the existing Bobathon Vercel project for automatic deployments. Browser, SVG and Apple touch icons are under `app/`; `scripts/generate-icons.py` reproduces the raster formats with Pillow.
+
 ## Development
 
 Copy `.env.example` to `.env.local` and supply the three server-only variables. Never commit real credentials.
@@ -26,6 +31,7 @@ Copy `.env.example` to `.env.local` and supply the three server-only variables. 
 npm ci
 npm run dev
 npm run check
+node scripts/check-build-flow.cjs
 npm run build
 ```
 

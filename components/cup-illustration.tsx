@@ -1,14 +1,14 @@
 import { useId } from 'react';
 import { Drink,teas,toppings } from '@/lib/drinks';
 
-export default function Cup({drink,small=false}:{drink:Drink;small?:boolean}){
+export default function Cup({drink,small=false,draft=false}:{drink:Drink;small?:boolean;draft?:boolean}){
  const id=useId().replaceAll(':','');
  const teaColor=teas.find(t=>t.name===drink.tea)?.color||'#acb98b';
- const milkColor=drink.milk==='No milk'?teaColor:drink.milk==='Coconut milk'?'#f1eddb':'#e4d3af';
+ const milkColor=draft?'#dfe6cd':drink.milk==='No milk'?teaColor:drink.milk==='Coconut milk'?'#f1eddb':'#e4d3af';
  const boundary=360-245*drink.teaAmount/100;
  const iceCount={'No ice':0,'Light ice':3,'Regular ice':6,'Extra ice':10}[drink.ice];
  const pearls=Array.from({length:drink.toppings.length*7},(_,i)=>({x:86+(i*37)%138,y:338-(i*19)%52,r:7+i%3,ingredient:drink.toppings[i%drink.toppings.length]}));
- return <svg viewBox="0 0 310 410" role="img" aria-label={`${drink.tea} with ${drink.milk} and ${drink.toppings.length} toppings`} className={small?'cup-svg small':'cup-svg'}>
+ return <svg viewBox="0 0 310 410" role="img" aria-label={draft?`${drink.tea} base in progress`:`${drink.tea} with ${drink.milk} and ${drink.toppings.length} toppings`} className={small?'cup-svg small':'cup-svg'}>
  <defs>
  <clipPath id={id+'clip'}><path d="M58 111L253 111L232 342Q230 361 211 362H100Q80 361 78 342Z"/></clipPath>
  <linearGradient id={id+'liquid'} x1="0" x2="1"><stop stopColor={teaColor}/><stop offset=".25" stopColor={teaColor} stopOpacity=".82"/><stop offset=".8" stopColor={teaColor}/><stop offset="1" stopColor="#443c23" stopOpacity=".65"/></linearGradient>
